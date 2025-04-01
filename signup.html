@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | Help Hour</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7fc;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            padding-top: 80px; /* Offset for fixed navbar */
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(13, 27, 42, 0.9);
+            padding: 15px 0;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Signup Container */
+        .signup-container {
+            background: #ffffff;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .signup-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #0d1b2a; /* Matches navbar */
+        }
+
+        /* Role Selector */
+        .role-selector {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .role-selector button {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #d3dce6;
+            color: #333;
+        }
+
+        .role-selector button.active {
+            background: #0d1b2a;
+            color: white;
+        }
+
+        /* Form Styles */
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signup-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-form button {
+            background: #0d1b2a;
+            color: white;
+            padding: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .signup-form button:hover {
+            background: #1c2f4a;
+        }
+
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .forgot-password a {
+            color: #0d1b2a;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            .signup-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <div class="navbar-brand" href="#">Help Hour</div>
+        </div>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="signup-container">
+        <h2>Create an Account</h2>
+
+        <!-- Role Selection -->
+        <div class="role-selector">
+            <button id="customer-btn" class="active" onclick="selectRole('customer')">Customer</button>
+            <button id="provider-btn" onclick="selectRole('provider')">Service Provider</button>
+        </div>
+
+        <!-- Signup Form -->
+        <form class="signup-form">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="text" id="address" placeholder="Address" required>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p class="forgot-password"><a href="#">Already have an account? Login here</a></p>
+    </div>
+
+    <script>
+        function selectRole(role) {
+            document.getElementById('customer-btn').classList.remove('active');
+            document.getElementById('provider-btn').classList.remove('active');
+            
+            if (role === 'customer') {
+                document.getElementById('customer-btn').classList.add('active');
+            } else {
+                document.getElementById('provider-btn').classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>

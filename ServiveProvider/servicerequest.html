@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Requests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        
+
+        /* Main Content */
+        .main-content { margin-left: 260px; padding: 20px; flex-grow: 1; width: calc(100% - 260px); }
+
+        .table-container {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background: #0d1b2a;
+            color: white;
+        }
+        table tr:hover {
+            background: #f1f1f1;
+        }
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .btn-accept {
+            background: #28a745;
+            color: white;
+        }
+        .btn-decline {
+            background: #dc3545;
+            color: white;
+        }
+
+      
+    </style>
+</head>
+<body>
+    //* Sidebar *//
+
+   <!-- Sidebar -->
+   <div class="sidebar">
+    <h2>Help Hour</h2>
+    <ul>
+        <a href="dashboard.html" class="nav-item" id="dashboard">
+            <li><i class="fas fa-home"></i> Dashboard</li>
+        </a>
+        <a href="myservices.html" class="nav-item" id="myservices">
+            <li><i class="fas fa-tasks"></i> My Services</li>
+        </a>
+        <a href="servicerequest.html" class="nav-item" id="servicerequest">
+            <li><i class="fas fa-clipboard-list"></i> Service Requests</li>
+        </a>
+        <a href="profile.html" class="nav-item" id="profile">
+            <li><i class="fas fa-user"></i> Profile</li>
+        </a>
+        <a href="#" class="nav-item" id="logout" onclick="confirmLogout(event)">
+            <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+        </a>
+        
+        <script>
+            function confirmLogout(event) {
+                event.preventDefault(); // Prevent the default action of the <a> tag
+                if (confirm("Are you sure you want to log out?")) {
+                    window.location.href = '../login.html';
+                }
+            }
+        </script>
+        
+    </ul>
+</div>
+
+<style>
+    .sidebar {
+        width: 250px;
+        background: #0d1b2a;
+        height: 100vh;
+        padding: 20px;
+        position: fixed;
+        color: white;
+    }
+    .sidebar h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar ul li {
+        padding: 15px;
+        border-radius: 5px;
+        margin: 5px 0;
+        cursor: pointer;
+        transition: 0.3s;
+        color: white;
+    }
+    .sidebar ul li i {
+        margin-right: 10px;
+    }
+    .sidebar ul li:hover {
+        background: #1c2f4a;
+    }
+
+    /* Active (selected) menu item */
+    .sidebar ul .active {
+        background:#1c2f4a; /* Change this to your desired color */
+        color: white; /* Keep the font color white */
+    }
+
+    /* Remove underline from links */
+    .nav-item {
+        text-decoration: none;
+    }
+</style>
+
+<script>
+    // Get current page URL
+    let currentPage = window.location.pathname.split("/").pop();
+
+    // Highlight the active menu item
+    document.querySelectorAll(".nav-item").forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.firstElementChild.classList.add("active");
+        }
+    });
+</script>
+<div class="main-content">
+    <div class="container">
+        <h2>Service Requests</h2>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search by name...">
+            <select id="status-filter">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="in-progress">In Progress</option>
+            </select>
+        </div>
+        <div class="table-container">
+            <h3>Service Requests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Service</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alice Smith</td>
+                        <td>Plumbing Repair</td>
+                        <td>123 Maple St, NY</td>
+                        <td>+1 234 567 890</td>
+                        <td>March 30, 2025</td>
+                        <td>Pending</td>
+                        <td>
+                            <button class="btn btn-accept">Accept</button>
+                            <button class="btn btn-decline">Decline</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Robert Johnson</td>
+                        <td>Electrical Fix</td>
+                        <td>456 Oak St, LA</td>
+                        <td>+1 987 654 321</td>
+                        <td>March 31, 2025</td>
+                        <td>Pending</td>
+                        <td>
+                            <button class="btn btn-accept">Accept</button>
+                            <button class="btn btn-decline">Decline</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+    <script>
+        document.getElementById('search').addEventListener('input', function() {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#service-list tr');
+            rows.forEach(row => {
+                let name = row.cells[0].innerText.toLowerCase();
+                row.style.display = name.includes(searchValue) ? '' : 'none';
+            });
+        });
+
+        document.getElementById('status-filter').addEventListener('change', function() {
+            let filterValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#service-list tr');
+            rows.forEach(row => {
+                let status = row.cells[5].innerText.toLowerCase();
+                row.style.display = (filterValue === 'all' || status === filterValue) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

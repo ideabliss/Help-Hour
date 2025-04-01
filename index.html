@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Help Hour</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Help Hour</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">  
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link login-link" href="login.html">
+                            <i class="fas fa-user-circle"></i> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <style>
+    
+    </style>
+    
+    <!-- Make sure to include FontAwesome for the login icon -->
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    
+    
+    <!-- Make sure to include FontAwesome for the login icon -->
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    
+    <div class="banner">
+        <div class="banner-content">
+            <h1>Help Hour</h1>
+            <p>Your one-stop solution for home services! We provide reliable and professional services to make your life easier. From home repairs to cleaning and maintenance, we've got you covered with just a few clicks.</p>
+            <a href="customerlogin.html"><button class="btn btn-custom">Book Your Service</button></a>
+        </div>
+        <div class="uimg">
+            <img src="assets/images/hero.png" alt="Hero Image">
+        </div>
+    </div>
+   
+    
+    <section class="services-section" id="services">
+        <h2 style=" font-weight: bold; ">Our Services</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <i class="fas fa-bolt"></i>
+                        <h4><strong>Electrician Services</strong></h4>
+                        <p>Our professional electricians handle wiring, installations, and electrical repairs with precision and safety.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <i class="fas fa-wrench"></i>
+                        <h4><strong>Plumbing Services</strong></h4>
+                        <p>From pipe repairs to bathroom installations, our expert plumbers ensure smooth water flow in your home or office.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <i class="fas fa-broom"></i>
+                        <h4><strong>House Cleaning</strong></h4>
+                        <p>We offer deep cleaning and maintenance services to keep your home spotless and hygienic with eco-friendly products.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="about-title">About Us</h2>
+            <p class="about-intro">We provide reliable and professional home services, ensuring your home remains safe and well-maintained. Our experts offer top-quality plumbing, electrical repairs, and house cleaning – all at your doorstep.</p>
+            
+            <div class="about-content">
+                <div class="about-card">
+                    <p>With years of experience, we have built a reputation for excellence. Our certified professionals are dedicated to delivering efficient and high-quality services with a focus on customer satisfaction, transparency, and affordability.</p>
+                </div>
+    
+                <div class="about-card">
+                    <p>We use eco-friendly products and innovative solutions to keep your home in top condition. Whether it's a minor repair or a major project, we aim to make the process smooth and hassle-free for you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+  
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-custom">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Company Info -->
+                <div class="footer-section">
+                    <h3>Help Hour</h3>
+                    <p>Reliable home services at your doorstep.</p>
+                    <p>&copy; 2025 Help Hour | All rights reserved.</p>
+                </div>
+    
+                <!-- Contact Details -->
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:support@helphour.com">support@helphour.com</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+919876543210">+91 74985 46750</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Plot No. 12, Sector-22, Opp. Nerul Railway Station, Phase-II, Nerul (W), Navi Mumbai, Mumbai, 400706.</p>
+                </div>
+    
+                <!-- Social Links -->
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <style>
+    /* Footer Styling */
+    .footer {
+        background: #0d0d0d;
+        color: #fff;
+        padding: 60px 20px;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Grid Layout */
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        text-align: left;
+    }
+    
+    /* Footer Sections */
+    .footer-section h3, .footer-section h4 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    
+    .footer-section p {
+        font-size: 15px;
+        color: #ccc;
+        line-height: 1.6;
+    }
+    
+    .footer-section a {
+        color: white;
+
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    
+    .footer-section a:hover {
+        color: #fff;
+    }
+    
+    /* Social Icons */
+    .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+    }
+    
+    .social-icons a {
+        color: white;
+        font-size: 1.5rem;
+        transition: 0.3s;
+    }
+    
+    .social-icons a:hover {
+        color: #fff;
+        transform: scale(1.1);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    
+        .social-icons {
+            justify-content: center;
+        }
+    }
+    </style>
+    
+</body>
+</html>

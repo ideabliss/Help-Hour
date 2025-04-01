@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Help Hour</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f7fc; color: #333; display: flex; }
+        
+        /* Sidebar */
+      
+        /* Main Content */
+        .main-content { margin-left: 260px; padding: 20px; flex-grow: 1; width: calc(100% - 260px); }
+
+        /* Profile Card */
+        .profile-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); width: 50%; margin: auto; text-align: center; }
+        .profile-card img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 15px; }
+        .profile-card h2 { margin-bottom: 10px; }
+        .profile-card p { color: #777; margin-bottom: 15px; }
+        .btn { background:  #2b2b2c; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; }
+
+        /* Edit Profile Form */
+        .edit-profile { display: none; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); width: 50%; margin: auto; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .form-group textarea { height: 80px; resize: none; }
+        .form-actions { text-align: center; margin-top: 10px; }
+        .btn-save { background: #333534; }
+        .btn-cancel { background:#2b2b2c; margin-left: 10px; }
+
+        .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #2b2b2c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: white;
+    margin: 0 auto 15px;
+}
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { width: 200px; }
+            .main-content { margin-left: 210px; width: calc(100% - 210px); }
+            .profile-card, .edit-profile { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+       <!-- Sidebar -->
+<div class="sidebar">
+    <h2>Help Hour</h2>
+    <ul>
+        <a href="dashboard.html" class="nav-item" id="dashboard">
+            <li><i class="fas fa-home"></i> Dashboard</li>
+        </a>
+        <a href="myservices.html" class="nav-item" id="myservices">
+            <li><i class="fas fa-tasks"></i> My Services</li>
+        </a>
+        <a href="servicerequest.html" class="nav-item" id="servicerequest">
+            <li><i class="fas fa-clipboard-list"></i> Service Requests</li>
+        </a>
+        <a href="profile.html" class="nav-item" id="profile">
+            <li><i class="fas fa-user"></i> Profile</li>
+        </a>
+        <a href="../login.html" class="nav-item" id="logout" onclick="confirmLogout()">
+            <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+        </a>
+        
+        <script>
+            function confirmLogout() {
+                if (confirm("Are you sure you want to log out?")) {
+                    window.location.href = 'login.html';
+                }
+            }
+        </script>
+    </ul>
+</div>
+
+<style>
+    .sidebar {
+        width: 250px;
+        background: #0d1b2a;
+        height: 100vh;
+        padding: 20px;
+        position: fixed;
+        color: white;
+    }
+    .sidebar h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar ul li {
+        padding: 15px;
+        border-radius: 5px;
+        margin: 5px 0;
+        cursor: pointer;
+        transition: 0.3s;
+        color: white;
+    }
+    .sidebar ul li i {
+        margin-right: 10px;
+    }
+    .sidebar ul li:hover {
+        background: #1c2f4a;
+    }
+
+    /* Active (selected) menu item */
+    .sidebar ul .active {
+        background:#1c2f4a; /* Change this to your desired color */
+        color: white; /* Keep the font color white */
+    }
+
+    /* Remove underline from links */
+    .nav-item {
+        text-decoration: none;
+    }
+</style>
+
+<script>
+    // Get current page URL
+    let currentPage = window.location.pathname.split("/").pop();
+
+    // Highlight the active menu item
+    document.querySelectorAll(".nav-item").forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.firstElementChild.classList.add("active");
+        }
+    });
+</script>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+<!-- Profile Card -->
+<div class="profile-card" id="viewProfile">
+    <div class="avatar">
+        <i class="fas fa-user"></i>
+    </div>
+    <h2>John Doe</h2>
+    <p><b>Phone:</b> +91 98765 43210</p>
+    <p><b>Email:</b> johndoe@example.com</p>
+    <p><b>Address:</b> Navi Mumbai, India</p>
+    <p><b>Experience:</b> 5 Years in Plumbing & Electrical Work</p>
+    <button class="btn" onclick="editProfile()">Edit Profile</button>
+</div>
+
+
+        <!-- Edit Profile Form -->
+        <div class="edit-profile" id="editProfile">
+            <h2>Edit Profile</h2>
+            <form>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" value="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" value="+91 98765 43210">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" value="johndoe@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea>Navi Mumbai, India</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Experience</label>
+                    <input type="text" value="5 Years in Plumbing & Electrical Work">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-save" onclick="saveProfile()">Save</button>
+                    <button type="button" class="btn btn-cancel" onclick="cancelEdit()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        function editProfile() {
+            document.getElementById("viewProfile").style.display = "none";
+            document.getElementById("editProfile").style.display = "block";
+        }
+
+        function cancelEdit() {
+            document.getElementById("editProfile").style.display = "none";
+            document.getElementById("viewProfile").style.display = "block";
+        }
+
+        function saveProfile() {
+            alert("Profile Updated Successfully!");
+            cancelEdit();
+        }
+    </script>
+
+</body>
+</html>
