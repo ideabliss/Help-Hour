@@ -6,48 +6,25 @@
     <title>My Services | Help Hour</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #f4f7fc; color: #333; display: flex; }
-        
-        /* Sidebar */
-       
+    <link rel="stylesheet" href="myservices.css">
+    <link rel="stylesheet" href="dashboard.css">
+    
+    <!-- Firebase SDK -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"></script>
 
-        /* Main Content */
-        .main-content { margin-left: 260px; padding: 20px; flex-grow: 1; width: calc(100% - 260px); }
-
-        /* Header */
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 20px; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); border-radius: 8px; }
-        .dashboard-header h2 { color: #0d1b2a; }
-
-        /* Services */
-        .services-container { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .service-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); text-align: center; transition: 0.3s; }
-        .service-card:hover { transform: translateY(-5px); }
-        .service-card h3 { margin-bottom: 10px; color: #0d1b2a; }
-        .service-card p { margin-bottom: 15px; color: #555; }
-        .btn { padding: 10px 15px; border: none; cursor: pointer; border-radius: 5px; font-size: 14px; }
-        .btn-edit { background: #007bff; color: white; }
-        .btn-remove { background: #dc3545; color: white; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar { width: 200px; }
-            .main-content { margin-left: 210px; width: calc(100% - 210px); }
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
-       <!-- Sidebar -->
+<!-- Sidebar -->
 <div class="sidebar">
     <h2>Help Hour</h2>
     <ul>
         <a href="dashboard.html" class="nav-item" id="dashboard">
             <li><i class="fas fa-home"></i> Dashboard</li>
         </a>
-        <a href="myservices.html" class="nav-item" id="myservices">
+        <a href="myservices.html" class="nav-item active" id="myservices">
             <li><i class="fas fa-tasks"></i> My Services</li>
         </a>
         <a href="servicerequest.html" class="nav-item" id="servicerequest">
@@ -59,96 +36,63 @@
         <a href="../login.html" class="nav-item" id="logout" onclick="confirmLogout()">
             <li><i class="fas fa-sign-out-alt"></i> Logout</li>
         </a>
-        
-        <script>
-            function confirmLogout() {
-                if (confirm("Are you sure you want to log out?")) {
-                    window.location.href = 'login.html';
-                }
-            }
-        </script>
     </ul>
 </div>
 
-<style>
-    .sidebar {
-        width: 250px;
-        background: #0d1b2a;
-        height: 100vh;
-        padding: 20px;
-        position: fixed;
-        color: white;
-    }
-    .sidebar h2 {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-    .sidebar ul {
-        list-style: none;
-        padding: 0;
-    }
-    .sidebar ul li {
-        padding: 15px;
-        border-radius: 5px;
-        margin: 5px 0;
-        cursor: pointer;
-        transition: 0.3s;
-        color: white;
-    }
-    .sidebar ul li i {
-        margin-right: 10px;
-    }
-    .sidebar ul li:hover {
-        background: #1c2f4a;
-    }
+<!-- Main Content -->
+<div class="main-content">
+    <div class="dashboard-header">
+        <h2>My Services</h2>
+        <button class="btn btn-add-service" onclick="showServiceForm()">+ Add Service</button>
+    </div>
 
-    /* Active (selected) menu item */
-    .sidebar ul .active {
-        background:#1c2f4a; /* Change this to your desired color */
-        color: white; /* Keep the font color white */
-    }
+  <!-- Add Service Form (Hidden by default) -->
+<div class="service-form-container" id="serviceForm" style="display: none;">
+    <h3>Add New Service</h3>
+    <form onsubmit="addService(event)">
+        <div class="form-group">
+            <label>Service Name</label>
+            <select id="service-name" required>
+                <option value="" disabled selected>Select a service</option>
+                <option value="House Cleaning">House Cleaning</option>
+                <option value="Plumber">Plumber</option>
+                <option value="Electrician">Electrician</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="service-description" required></textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-save">Save</button>
+            <button type="button" class="btn btn-cancel" onclick="hideServiceForm()">Cancel</button>
+        </div>
+    </form>
+</div>
 
-    /* Remove underline from links */
-    .nav-item {
-        text-decoration: none;
-    }
-</style>
+    <!-- Services List -->
+    <div class="services-container" id="servicesList">
+        <!-- Services will be dynamically loaded here -->
+    </div>
+</div>
+
+<script type="module" src="myservices.js"></script>
 
 <script>
-    // Get current page URL
-    let currentPage = window.location.pathname.split("/").pop();
+    function showServiceForm() {
+        document.getElementById("serviceForm").style.display = "block";
+    }
 
-    // Highlight the active menu item
-    document.querySelectorAll(".nav-item").forEach(link => {
-        if (link.getAttribute("href") === currentPage) {
-            link.firstElementChild.classList.add("active");
+    function hideServiceForm() {
+        document.getElementById("serviceForm").style.display = "none";
+    }
+
+    function confirmLogout() {
+        if (confirm("Are you sure you want to log out?")) {
+            window.location.href = '../index.html';
         }
-    });
+    }
 </script>
-
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="dashboard-header">
-            <h2>My Services</h2>
-            <button class="btn btn-edit">+ Add Service</button>
-        </div>
-
-        <div class="services-container">
-            <div class="service-card">
-                <h3>Plumbing Repair</h3>
-                <p>Expert plumbing services including leak fixes and installations.</p>
-                <button class="btn btn-edit">Edit</button>
-                <button class="btn btn-remove">Remove</button>
-            </div>
-            <div class="service-card">
-                <h3>Electrical Work</h3>
-                <p>Professional electrical repairs, wiring, and maintenance.</p>
-                <button class="btn btn-edit">Edit</button>
-                <button class="btn btn-remove">Remove</button>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>
