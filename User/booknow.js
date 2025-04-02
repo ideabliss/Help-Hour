@@ -3,14 +3,14 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBZZlnBJ8Fuvt-o6IGYslESjHo2O6KKPVI",
-    authDomain: "helphour-67342.firebaseapp.com",
-    projectId: "helphour-67342",
-    storageBucket: "helphour-67342.appspot.com",
-    messagingSenderId: "67494683968",
-    appId: "1:67494683968:web:d917341deb2fefb05906a5",
-    measurementId: "G-W1EWD6YD6M"
-  };
+    apiKey: "AIzaSyBNtC71ZHCJffBT9A7-BYgCBjgPkJjBsD4",
+    authDomain: "helphour-5eb6b.firebaseapp.com",
+    projectId: "helphour-5eb6b",
+    storageBucket: "helphour-5eb6b.appspot.com",
+    messagingSenderId: "249632237594",
+    appId: "1:249632237594:web:ca0daad37e69958f2509a3",
+    measurementId: "G-2P4YER9QCF"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

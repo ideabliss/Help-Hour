@@ -1,6 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { 
+    getFirestore, doc, getDoc, updateDoc, collection, getDocs, addDoc, serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -152,27 +154,25 @@ async function updateProfile(event) {
     }
 }
 
-
-
+// Load Service Providers
 async function loadServiceProviders() {
     const providersList = document.getElementById("providersList");
     providersList.innerHTML = "<p>Loading service providers...</p>";
 
     const querySnapshot = await getDocs(collection(db, "services"));
-    providersList.innerHTML = ""; // Clear loading text
+    providersList.innerHTML = "";
 
-    let count = 0; // Counter to limit to 6 cards
+    let count = 0; // Limit to 6 cards
+    querySnapshot.forEach((docSnap) => {
+        if (count >= 6) return;
 
-    querySnapshot.forEach((doc) => {
-        if (count >= 6) return; // Stop adding after 6 cards
-
-        const service = doc.data();
+        const service = docSnap.data();
         const encodedParams = new URLSearchParams({
             service: service.serviceName,
             provider: service.providerName,
             phone: service.providerPhone,
             email: service.providerEmail,
-            rating: service.rating || "No Rating" // Handle missing rating
+            rating: service.rating || "No Rating"
         }).toString();
 
         const providerCard = `
@@ -185,9 +185,18 @@ async function loadServiceProviders() {
                 <p><b>Provider:</b> ${service.providerName}</p>
                 <p><b>Phone:</b> ${service.providerPhone}</p>
                 <p><b>Email:</b> ${service.providerEmail}</p>
-                <a href="booknow.html?${encodedParams}">
-                    <button class="btn btn-warning">Book Slot</button>
-                </a>
+                <div class="button-group">
+                    <a href="booknow.html?${encodedParams}">
+                        <button class="btn btn-warning">Book Slot</button>
+                    </a>
+                    <button class="btn btn-success book-now-btn"
+                        data-service="${service.serviceName}"
+                        data-provider="${service.providerName}"
+                        data-phone="${service.providerPhone}"
+                        data-email="${service.providerEmail}">
+                        Book Now
+                    </button>
+                </div>
             </div>
         `;
         providersList.innerHTML += providerCard;
@@ -197,8 +206,63 @@ async function loadServiceProviders() {
     if (count === 0) {
         providersList.innerHTML = "<p>No service providers available.</p>";
     }
-}
 
+    // Ensure buttons are added after rendering
+    setTimeout(() => {
+        document.querySelectorAll(".book-now-btn").forEach(button => {
+            button.addEventListener("click", (event) => {
+                const serviceName = event.target.dataset.service;
+                const providerName = event.target.dataset.provider;
+                const providerPhone = event.target.dataset.phone;
+                const providerEmail = event.target.dataset.email;
+                bookNow(serviceName, providerName, providerPhone, providerEmail);
+            });
+        });
+    }, 500);
+}
 
 loadServiceProviders();
 
+// Book Now Function
+async function bookNow(serviceName, providerName, providerPhone, providerEmail) {
+    const user = auth.currentUser;
+    if (!user) {
+        alert("You must be logged in to book a service.");
+        return;
+    }
+
+    const customerRef = doc(db, "customers", user.uid);
+    const customerSnap = await getDoc(customerRef);
+
+    if (!customerSnap.exists()) {
+        alert("Customer data not found!");
+        return;
+    }
+
+    const customerData = customerSnap.data();
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split("T")[0];
+    const formattedTime = currentDate.toLocaleTimeString();
+
+    try {
+        await addDoc(collection(db, "bookings"), {
+            customerId: user.uid,
+            customerName: customerData.name,
+            customerEmail: customerData.email,
+            customerPhone: customerData.phone || "Not Provided",
+            customerAddress: customerData.address || "Not Provided",
+            provider: providerName,
+            providerEmail: providerEmail,
+            providerPhone: providerPhone,
+            service: serviceName,
+            selectedDate: formattedDate,
+            selectedTime: formattedTime,
+            status: "Pending",
+            createdAt: serverTimestamp()
+        });
+        alert("Service booked successfully!");
+    } catch (error) {
+        console.error("Error booking service:", error);
+        alert("Booking failed. Please try again.");
+    }
+}

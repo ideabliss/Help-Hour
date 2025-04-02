@@ -160,21 +160,41 @@
 }
 
 /* Button Styling */
-.provider-card .btn-warning {
+/* Button Styling */
+.button-group {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px;
+    width: 100%;
+}
+
+.button-group a, .button-group button {
+    flex: 1; /* Ensures both buttons take equal space */
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-warning, .btn-success {
     background-color: rgba(13, 27, 42, 0.9);
     border: none;
     font-weight: bold;
-    margin-top: 15px;
-    padding: 10px 15px;
+    padding: 12px 0; /* Ensures equal vertical spacing */
     color: white;
     width: 100%;
+    height: 45px; /* Set a fixed height for both buttons */
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.provider-card .btn-warning:hover {
-    background-color: rgba(13, 27, 42, 0.9);
+/* Hover Effects */
+.btn-warning:hover, .btn-success:hover {
+    background-color: rgba(8, 20, 35, 0.9);
 }
 
 /* Responsive Design */
